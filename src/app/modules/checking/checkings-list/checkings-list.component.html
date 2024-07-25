@@ -1,0 +1,68 @@
+<div class=" w-full flex flex-col justify-center items-center min-h-100">
+  <fuse-alert [type]="'success'" *ngIf="this.checkingDeleted" [appearance]="'fill'" 
+  class="w-1/2 my-2 absolute top-0" >
+      <span fuseAlertTitle>Checking deleted successfully</span>
+      checking with ID 1 was deleted
+  </fuse-alert>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div *ngIf="!loading"  class="w-full self-center items-center flex flex-col">
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+  
+      <!-- Actual Time Column -->
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Time">
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+      </ng-container>
+  
+  
+      <!-- Matricule Column -->
+      <ng-container matColumnDef="matricule">
+        <th mat-header-cell *matHeaderCellDef> Matricule </th>
+        <td mat-cell *matCellDef="let element"> {{element.matricule}} </td>
+      </ng-container>
+  
+      <!-- Direction Column -->
+      <ng-container matColumnDef="direction">
+        <th mat-header-cell *matHeaderCellDef> Direction </th>
+        <td mat-cell *matCellDef="let element"> {{element.direction}} </td>
+      </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="more" >
+        <th mat-header-cell *matHeaderCellDef > Details </th>
+        
+        <td mat-cell *matCellDef="let element" >
+          <button mat-button  (click)="view(element)" ><mat-icon color="primary" class="hover:icon-size-8" svgIcon="remove_red_eye"></mat-icon>
+          </button>
+         
+        </td>
+
+      </ng-container>
+      <ng-container matColumnDef="delete" >
+        <th mat-header-cell *matHeaderCellDef class="{{this.role == 'user' ? 'hidden' : 'visible'}}"> Delete </th>
+        
+        <td mat-cell *matCellDef="let element" class="{{this.role == 'user' ? 'hidden' : 'visible'}}">
+          <button mat-button color="warn" (click)="delete(element.id)" ><mat-icon color="warn" class="hover:icon-size-8">delete_outline</mat-icon></button>      
+         
+        </td>
+
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of checkings" class="self-center">
+    </mat-paginator>
+  </div>
+  </div>

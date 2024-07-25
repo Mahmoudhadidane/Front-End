@@ -1,0 +1,114 @@
+<div class="bg-card shadow-2xl rounded w-full py-6 flex flex-col m-auto px-10">
+    <h1 class="text-center font-semibold text-3xl my-3">
+        View Persons Checkings
+    </h1>
+    <form
+        [formGroup]="form"
+        class="flex flex-row {{
+            this.hideSeach ? 'hidden' : 'flex'
+        }} bg-gray-100 justify-between shadow-md px-5 self-center items-center pt-5"
+    >
+    <div class="flex w-full px-3">
+          
+
+        <mat-form-field
+            [ngClass]="form" [floatLabel]="'always'"
+            class="flex-auto  ">
+            <mat-label>Matricules List</mat-label>
+            <mat-chip-grid #chipGrid01>
+                <mat-chip-row [editable]="true"  *ngFor="let matricule of martriculesList">
+                    <span>{{matricule}}</span>
+                    <mat-icon
+                        class="icon-size-5"
+                        (click)="remove(matricule)"
+                        [svgIcon]="'heroicons_solid:minus-circle'"></mat-icon>
+                </mat-chip-row>
+             
+                <input
+                    [placeholder]="'Matricules...'"
+                    class="my-2"
+                    id="matricule"
+                    formControlName="matricule"
+                    [matChipInputFor]="chipGrid01">
+            </mat-chip-grid>
+           <mat-icon (click)="addMatricule()" class="hover:bg-gray-200 rounded-full hover:cursor-pointer">add</mat-icon>
+        </mat-form-field>
+    </div>
+        <div class="flex flex-col">
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="'always'"
+                class="mx-3"
+            >
+                <mat-label>Date</mat-label>
+                <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="startDate"
+                    placeholder="From"
+                    [defaultValue]="defaultDate"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="'always'"
+                class="mx-3"
+            >
+                <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="endtDate"
+                    placeholder="To"
+                    [defaultValue]="defaultDate"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-col">
+            <mat-form-field appearance="fill" class="mr-10" class="w-36">
+                <mat-label>Time</mat-label>
+                <input
+                    matInput
+                    class="w-100"
+                    formControlName="endTime"
+                    type="time"
+                    placeholder="From"
+                />
+                <mat-icon class="self-center mb-1"
+                    >access_time</mat-icon
+                > </mat-form-field
+            ><mat-form-field appearance="fill" class="mr-10" class="w-36">
+                <input
+                    matInput
+                    class="w-100"
+                    formControlName="startTime"
+                    type="time"
+                    placeholder="To"
+                />
+                <mat-icon class="self-center mb-1">access_time</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="self-center mt-2 ml-3">
+            <mat-icon
+                class="icon-size-7 text-green-600 hover:text-green-800 hover:cursor-pointer"
+                (click)="searchCheckings()"
+                >search</mat-icon
+            >
+        </div>
+    </form>
+    <!-- <mat-icon
+    class="icon-size-7 self-end text-blue-700 hover:text-blue-900 hover:cursor-pointer"
+    (click)="this.toggleSearch()"
+    >search</mat-icon -->
+
+    <checkings-list [loading]="this.loading"></checkings-list>
+</div>

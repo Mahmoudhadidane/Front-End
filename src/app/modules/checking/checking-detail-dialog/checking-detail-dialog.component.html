@@ -1,0 +1,73 @@
+<div class="flex flex-col items-center w-full bg-white rounded-lg ">
+    <h1 mat-dialog-title class="font-bold text-2xl mb-4">Checking Details</h1>
+    <div mat-dialog-content class="dialog-content overflow-y-auto max-h-96">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <strong class="block text-gray-700">ID:</strong>
+          <span>{{data.id}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Date:</strong>
+          <span>{{data.date}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Time:</strong>
+          <span>{{data.time}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Matricule:</strong>
+          <span>{{data.matricule}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Direction:</strong>
+          <span>{{data.direction}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Logical Time:</strong>
+          <span>{{data.logicalTime | date:'short'}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Direction Generated:</strong>
+          <span>{{data.directionGenerated ? 'Yes' : 'No'}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Ignored By Calculation:</strong>
+          <span>{{data.ignoredByCalc ? 'Yes' : 'No'}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">User Set Time:</strong>
+          <span>{{data.userSetTime | date:'short'}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Actual Source:</strong>
+          <span>{{data.actualSource}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Used:</strong>
+          <span>{{data.used ? 'Yes' : 'No'}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Timesheet ID:</strong>
+          <span>{{data.timesheetId}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Deleted:</strong>
+          <span>{{data.deleted ? 'Yes' : 'No'}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Person:</strong>
+          <span>{{data.person}}</span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">User:</strong>
+          <span>{{data.user}}</span>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="mt-6 ">
+      <button mat-button class="bg-orange-500 hover:bg-orange-600 px-5 py-2 text-white font-medium rounded-lg" (click)="onClose()">Edit</button>
+
+    </div>
+    <button mat-button class=" top-1 right-1    absolute  font-medium " (click)="onClose()"><mat-icon class="text-red-600">close</mat-icon></button>
+
+  </div>
