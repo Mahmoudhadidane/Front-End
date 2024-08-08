@@ -1,0 +1,93 @@
+.configuration-title {
+  font-size: 1.5rem; /* Taille de police légèrement plus grande */
+  font-weight: 700; /* Gras pour une meilleure visibilité */
+  color: #242b31; /* Couleur de texte primaire pour la cohérence */
+  text-align: center; /* Centrer le texte */
+  margin: 0; /* Supprimer les marges par défaut */
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-panel, .center-panel, .right-panel {
+  flex: 1;
+  padding: 16px;
+}
+
+.left-panel {
+  background: #f0f4f8; // Light background color for device management
+}
+
+.center-panel {
+  background: #ffffff; // White background for configuration
+}
+
+.right-panel {
+  background: #e0e0e0; // Light gray background for general information
+}
+
+.mat-toolbar {
+  background: #1976d2; // Primary color
+  padding: 0 16px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.new-device-section {
+  margin-top: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.device-icon-and-name {
+  display: flex;
+  align-items: center;
+}
+
+.device-icon {
+  font-size: 24px; // Adjust size as needed
+  margin-right: 8px;
+}
+
+.device-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.header {
+  background: #fff;
+}
+
+.bg-gray-100 {
+  background-color: #f5f5f5;
+}
+
+.rounded-t-xl {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.rounded-b-xl {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mt-4 {
+  margin-top: 16px;
+}

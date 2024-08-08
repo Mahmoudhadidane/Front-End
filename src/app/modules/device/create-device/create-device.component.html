@@ -1,0 +1,126 @@
+<div class="h-full w-120 bg-slate-200">
+  <!-- Barre de gestion de pointeuses -->
+  <mat-toolbar color="accent" class="mat-elevation-z4">
+    <span class="title">Gestion des Pointeuses</span>
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Device Menu">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <mat-menu-item *ngFor="let device of devices" (click)="onDeviceSelect(device.id)">
+        {{device.name}}
+      </mat-menu-item>
+    </mat-menu>
+    <button mat-icon-button (click)="deleteDevice()" aria-label="Delete Device">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+    <button mat-icon-button (click)="refresh()" aria-label="Refresh">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar>
+  <!-- Nouvelle Pointeuse Section -->
+  <div class="new-device-section p-4 bg-white rounded-lg shadow-md mt-4">
+    <div class="device-icon-and-name flex items-center">
+      <mat-icon class="device-icon">device_thermostat</mat-icon> <!--  -->
+      <mat-icon svgIcon="mat_solid:document_scanner"></mat-icon>
+
+      <span class="device-name text-lg font-semibold">{{selectedDevice?.name || 'Aucune pointeuse sélectionnée'}}</span>
+    </div>
+  </div>
+</div>
+
+<div>
+  <!-- Fiche de configuration -->
+  <div *ngIf="selectedDevice" class="container mx-auto p-8 max-w-6xl">
+    <!-- Header -->
+    <div class="header bg-white p-4 rounded-t-xl shadow mb-4">
+      <h2 class="configuration-title">Configuration</h2>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="bg-white rounded-b-xl shadow grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+      <!-- Section Configuration -->
+      <div class="col-span-1 md:col-span-2">
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field class="col-span-2">
+            <mat-label>Nom</mat-label>
+            <input matInput [(ngModel)]="device.name" [value]="selectedDevice.name" placeholder="Nouvelle pointeuse">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Numéro de série</mat-label>
+            <input matInput [(ngModel)]="device.serialNumber">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Adresse IP</mat-label>
+            <input matInput [(ngModel)]="device.ipAddress" placeholder="10.15.1.102">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Port</mat-label>
+            <input matInput [(ngModel)]="device.port" placeholder="51211">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Lecteur de carte</mat-label>
+            <mat-select [(ngModel)]="device.cardReader">
+              <mat-option value="mifare">MIFARE</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Type de communication</mat-label>
+            <mat-select [(ngModel)]="device.communicationType">
+              <mat-option value="tcp">TCP</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Direction</mat-label>
+            <input matInput [(ngModel)]="device.direction" value="NONE" disabled>
+          </mat-form-field>
+  
+          <div class="col-span-2 flex justify-between mt-4">
+            <button mat-raised-button color="primary" (click)="checkConfiguration()">Vérifier</button>
+            <button mat-raised-button color="warn" (click)="restartDevice()">Redémarrer</button>
+          </div>
+        </form>
+  
+        <!-- Section Configuration du temps -->
+        <div class="bg-gray-100 p-4 rounded-lg mt-4">
+          <h3 class="text-lg font-bold">Configuration du temps</h3>
+          <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-form-field class="w-full">
+              <mat-label>Date</mat-label>
+              <input matInput type="date">
+            </mat-form-field>
+  
+            <mat-form-field class="w-full">
+              <mat-label>Heure</mat-label>
+              <input matInput type="time">
+            </mat-form-field>
+  
+            <div class="col-span-2 flex justify-end mt-4">
+              <button mat-raised-button color="primary">Charger</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  <!-- Add this button to your template -->
+<!-- Right Side: Informations Générales -->
+<div class="right-panel">
+  <button mat-raised-button color="accent" (click)="toggleInfo()">Informations Générales</button>
+  <div *ngIf="showInfo" class="bg-gray-100 p-4 rounded-lg mt-4">
+    <h3 class="text-lg font-bold text-center">Informations générales</h3>
+    <p class="font-semibold">Statistiques utilisateurs:</p>
+    <p class="font-semibold">Nombre d'utilisateurs:</p>
+    <p class="font-semibold">Nombre d'empreintes:</p>
+    <p class="font-semibold">Nombre de cartes:</p>
+    <p class="font-semibold">Nombre de visages:</p>
+  </div>
+      </div>
+    </div>
+    
+  </div>
+  

@@ -12,48 +12,18 @@ import { ViewDayCheckingsComponent } from 'app/modules/checking/view-day-checkin
 import { ViewPersonsCheckingsComponent } from 'app/modules/checking/view-persons-checkings/view-persons-checkings.component';
 import { ViewCollectiveCheckingsComponent } from 'app/modules/checking/view-collective-checkings/view-collective-checkings.component';
 import { ViewUserCheckingsComponent } from 'app/modules/checking/view-user-checkings/view-user-checkings.component';
+import { DeviceModule } from 'app/modules/device/device.module';
+import { CreateDeviceComponent } from 'app/modules/device/create-device/create-device.component';
 
 const exampleRoutes: Route[] = [
     {
         path: '',
         component: ExampleComponent,
         children: [
-            {
-                path: 'create-checking',
-                component: CreateCheckingComponent
-            },
-            {
-                path: 'view-person-checkings',
-                component: ViewPersonCheckingsComponent
-            },
-            {
-                path:'create-collective-checkings',
-                component:CreateCollectiveCheckingsComponent
-            },
-            {
-                path:'create-persons-checkings',
-                component:CreatePersonsCheckingsComponent
-            },
-            {
-                path: 'all-checkings-list',
-                component:AllCheckingsComponent
-            },
-        
-            {path:"view-persons-checkings",
-                component:ViewPersonsCheckingsComponent
-            },
-            {
-                path:"collective-checkings",
-                component:ViewCollectiveCheckingsComponent
-            },
-            {
-                path:'day-checkings',
-                component:ViewDayCheckingsComponent
-            },
-            {
-                path:'user-checkings',
-                component:ViewUserCheckingsComponent
-            }
+           {
+            path:"create-device",
+            component:CreateDeviceComponent
+           }
 
 
             // Add more child routes as needed
@@ -67,7 +37,8 @@ const exampleRoutes: Route[] = [
     ],
     imports: [
         RouterModule.forChild(exampleRoutes),
-        CheckingsModule, // Ensure CheckingsModule is imported if using components directly
+        CheckingsModule, 
+        DeviceModule// Ensure CheckingsModule is imported if using components directly
     ]
 })
 export class ExampleModule {/*...*/}

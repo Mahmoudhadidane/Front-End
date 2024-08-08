@@ -11,6 +11,7 @@
                     class="fuse-horizontal-navigation-menu-item"
                     [item]="item"
                     [name]="name"></fuse-horizontal-navigation-basic-item>
+                    
             </ng-container>
 
             <!-- Branch: aside, collapsable, group -->
@@ -20,6 +21,9 @@
                     [item]="item"
                     [name]="name"></fuse-horizontal-navigation-branch-item>
             </ng-container>
+
+           
+
 
             <!-- Spacer -->
             <ng-container *ngIf="item.type === 'spacer'">

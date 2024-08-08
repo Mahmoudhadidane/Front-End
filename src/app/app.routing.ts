@@ -68,7 +68,7 @@ export const appRoutes: Route[] = [
         canMatch: [AuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'classic'
+            layout: 'modern'
         },
       
         resolve: {
@@ -85,7 +85,7 @@ export const appRoutes: Route[] = [
         canMatch: [AuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'centered'
+            layout: 'modern'
         },
         resolve: {
             initialData: InitialDataResolver,

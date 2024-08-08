@@ -14,6 +14,7 @@ import { appRoutes } from 'app/app.routing';
 import { CheckingsModule } from './modules/checking/checkings-module';
 import { CheckingDetailDialogComponent } from './modules/checking/checking-detail-dialog/checking-detail-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AddDeviceComponent } from './app/modules/device/add-device/add-device.component';
 
 
 
@@ -26,6 +27,7 @@ const routerConfig: ExtraOptions = {
     declarations: [
         AppComponent,
         CheckingDetailDialogComponent,
+        AddDeviceComponent,
 
     
     ],
