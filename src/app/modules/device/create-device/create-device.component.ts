@@ -1,73 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeviceService } from 'app/device.service';
 
 @Component({
   selector: 'app-create-device',
   templateUrl: './create-device.component.html',
   styleUrls: ['./create-device.component.scss']
 })
-export class CreateDeviceComponent {
-  selectedDevice: any = null; // Appareil sélectionné pour la configuration
-
+export class CreateDeviceComponent  {
   device = {
     name: '',
     serialNumber: '',
     ipAddress: '',
-    port: '',
+    port: '', // port est une chaîne de caractères
     cardReader: 'MIFARE',
     communicationType: 'TCP',
     direction: 'NONE'
   };
-
-  devices = [
-    { id: 'device1', name: 'Device 1' },
-    { id: 'device2', name: 'Device 2' },
-    { id: 'device3', name: 'Device 3' },
-    // Ajoutez plus d'appareils ici si nécessaire
+  
+  devices: any[] = [
+    { id: 'device1', name: 'ZKTeco K14' },
+    { id: 'device2', name: 'ZKTeco F21' },
+    { id: 'device3', name: 'ZKTeco KJ33' },
   ];
   
-   // Selected device
-  showInfo = false; // Flag to show/hide general information
+  selectedDevice: any; // Déclaration de selectedDevice
+  
+  constructor(private deviceService: DeviceService, private snackBar: MatSnackBar) {}
 
-  // Toggle the visibility of the general information section
-  toggleInfo() {
-    this.showInfo = !this.showInfo;
-  }
-
-  onDeviceSelect(deviceId: string) {
-    this.selectedDevice = this.devices.find(device => device.id === deviceId);
-    if (this.selectedDevice) {
-      this.device.name = this.selectedDevice.name; // Met à jour le nom du dispositif dans le formulaire
-    }
-  }
-
-  addDevice() {
-    if (this.device.name && this.device.serialNumber) {
-      // Logic to add a new device
-      console.log('Ajouter un appareil:', this.device);
-      // Réinitialisez le formulaire si nécessaire
-      this.device = {
-        name: '',
-        serialNumber: '',
-        ipAddress: '',
-        port: '',
-        cardReader: 'MIFARE',
-        communicationType: 'TCP',
-        direction: 'NONE'
-      };
-      this.selectedDevice = null; // Réinitialisez la sélection
-    } else {
-      console.log('Veuillez remplir tous les champs obligatoires.');
-    }
-  }
+ 
 
   checkConfiguration() {
-    console.log('Vérifier la configuration:', this.device);
-    // Ajoutez la logique pour vérifier la configuration
-  }
+    const { ipAddress, port } = this.device;
+    const portNumber = Number(port); // Convertir port en nombre
 
-  restartDevice() {
-    console.log('Redémarrer l\'appareil:', this.selectedDevice);
-    // Ajoutez la logique pour redémarrer l'appareil sélectionné
+    if (!ipAddress || !port) {
+      this.snackBar.open('L\'adresse IP et le port doivent être spécifiés.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    if (isNaN(portNumber) || portNumber <= 0) {
+      this.snackBar.open('Le port spécifié n\'est pas valide.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    // Appeler le service pour vérifier l'appareil
+    this.deviceService.verifyDevice(ipAddress, portNumber).subscribe(
+      response => {
+        // Supposons que la réponse est directement le numéro de série sous forme de chaîne
+        if (response) {
+          this.device.serialNumber = response; // Met à jour le numéro de série
+          this.snackBar.open(`Numéro de série vérifié avec succès: ${response}`, 'Fermer', {
+            duration: 3000,
+            panelClass: ['snackbar-success']
+          });
+        } else {
+          this.snackBar.open('L\'appareil n\'est pas connecté ou réponse invalide.', 'Fermer', {
+            duration: 3000,
+            panelClass: ['snackbar-error']
+          });
+        }
+      },
+      error => {
+        this.snackBar.open('Erreur lors de la vérification de l\'appareil.', 'Fermer', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    );
   }
 
   deleteDevice() {
@@ -79,9 +85,17 @@ export class CreateDeviceComponent {
       console.log('Aucun appareil sélectionné.');
     }
   }
-
+  
   refresh() {
-    console.log('Rafraîchir la liste des appareils');
-    // Ajoutez la logique pour rafraîchir la liste des appareils
+    
+  }
+
+  onDeviceSelect(deviceId: string) {
+    this.selectedDevice = this.devices.find(device => device.id === deviceId);
   }
 }
+
+
+
+
+

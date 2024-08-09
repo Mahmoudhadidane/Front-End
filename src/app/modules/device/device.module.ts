@@ -16,6 +16,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatIconModule,
     MatToolbarModule,
     FuseHighlightModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [
     MatIconRegistry
@@ -43,10 +47,5 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class DeviceModule { 
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'feather:airplay',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/feather/airplay.svg')
-    );
-  }
+
 }
