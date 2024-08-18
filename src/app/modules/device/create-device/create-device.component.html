@@ -37,51 +37,52 @@
     <div class="bg-white rounded-b-xl shadow grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
       <!-- Section Configuration -->
       <div class="col-span-1 md:col-span-2">
-        <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-4" (ngSubmit)="checkConfiguration()">
           <div class="header bg-white p-4 rounded-t-xl shadow mb-4">
             <h2 class="configuration-title">Configuration</h2>
           </div>
+        
           <mat-form-field class="col-span-2">
             <mat-label>Nom</mat-label>
-            <input matInput [(ngModel)]="device.name" [value]="selectedDevice?.name || ''" placeholder="Nouvelle pointeuse" />
+            <input matInput [(ngModel)]="device.name" name="name" placeholder="Nouvelle pointeuse" />
           </mat-form-field>
-
+        
           <mat-form-field>
             <mat-label>Numéro de série</mat-label>
-            <input matInput [(ngModel)]="device.serialNumber" [value]="device.serialNumber" />
+            <input matInput [(ngModel)]="device.serialNumber" name="serialNumber" />
           </mat-form-field>
-
+        
           <mat-form-field>
             <mat-label>Adresse IP</mat-label>
-            <input matInput [(ngModel)]="device.ipAddress" placeholder="10.15.1.102" />
+            <input matInput [(ngModel)]="device.ipAddress" name="ipAddress" placeholder="10.15.1.102" />
           </mat-form-field>
-
+        
           <mat-form-field>
             <mat-label>Port</mat-label>
-            <input matInput [(ngModel)]="device.port" placeholder="51211" />
+            <input matInput [(ngModel)]="device.port" name="port" placeholder="51211" />
           </mat-form-field>
-
+        
           <mat-form-field>
             <mat-label>Lecteur de carte</mat-label>
-            <mat-select [(ngModel)]="device.cardReader">
+            <mat-select [(ngModel)]="device.cardReader" name="cardReader">
               <mat-option value="mifare">MIFARE</mat-option>
             </mat-select>
           </mat-form-field>
-
+        
           <mat-form-field>
             <mat-label>Type de communication</mat-label>
-            <mat-select [(ngModel)]="device.communicationType">
+            <mat-select [(ngModel)]="device.communicationType" name="communicationType">
               <mat-option value="tcp">TCP</mat-option>
             </mat-select>
           </mat-form-field>
-
+        
           <mat-form-field>
             <mat-label>Direction</mat-label>
-            <input matInput [(ngModel)]="device.direction" value="NONE" disabled />
+            <input matInput [(ngModel)]="device.direction" name="direction" value="NONE" disabled />
           </mat-form-field>
-
+        
           <div class="col-span-2 flex justify-between mt-4">
-            <button mat-raised-button color="primary" (click)="checkConfiguration()">
+            <button mat-raised-button color="primary" type="submit">
               Vérifier
             </button>
             <button mat-raised-button color="warn" (click)="restartDevice()">
@@ -89,6 +90,7 @@
             </button>
           </div>
         </form>
+        
 
               <!-- Section Configuration du temps -->
               <div class="bg-gray-100 p-4 rounded-lg mt-4">

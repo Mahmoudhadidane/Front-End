@@ -65,7 +65,7 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path: 'admin',
-        canMatch: [AuthGuard],
+        //canMatch: [AuthGuard],
         component: LayoutComponent,
         data: {
             layout: 'modern'

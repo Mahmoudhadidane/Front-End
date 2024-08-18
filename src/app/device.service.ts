@@ -1,6 +1,6 @@
 // device.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,8 +16,15 @@ export class DeviceService {
     const params = new HttpParams()
       .set('ipAddress', ipAddress)
       .set('portNumber', portNumber.toString()); // Convertir le port en chaîne de caractères
-
-    return this.http.get<string>(`${this.baseUrl}/serial-number`, { params });
+    
+    // Retrieve token from local storage
+    const token = localStorage.getItem('accessToken');
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<string>(`${this.baseUrl}/serial-number`, { params, headers });
   }
 
   // Méthode pour obtenir tous les appareils

@@ -31,9 +31,10 @@ export class CreateDeviceComponent  {
  
 
   checkConfiguration() {
+    
     const { ipAddress, port } = this.device;
     const portNumber = Number(port); // Convertir port en nombre
-
+    console.log(port);
     if (!ipAddress || !port) {
       this.snackBar.open('L\'adresse IP et le port doivent être spécifiés.', 'Fermer', {
         duration: 3000,
@@ -52,10 +53,11 @@ export class CreateDeviceComponent  {
 
     // Appeler le service pour vérifier l'appareil
     this.deviceService.verifyDevice(ipAddress, portNumber).subscribe(
-      response => {
+      (response: any) => {
         // Supposons que la réponse est directement le numéro de série sous forme de chaîne
+        console.log(response)
         if (response) {
-          this.device.serialNumber = response; // Met à jour le numéro de série
+          this.device.serialNumber = response.serialNumber; // Met à jour le numéro de série
           this.snackBar.open(`Numéro de série vérifié avec succès: ${response}`, 'Fermer', {
             duration: 3000,
             panelClass: ['snackbar-success']
