@@ -91,3 +91,19 @@
 .mt-4 {
   margin-top: 16px;
 }
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.left-panel {
+  flex-grow: 1; /* Takes up the remaining space */
+  margin-right: 20px; /* Add some spacing between the panels */
+}
+
+.right-panel {
+  width: 300px; /* Set a fixed width for the right panel */
+  margin-left: auto; /* Pushes the right panel to the far right */
+}

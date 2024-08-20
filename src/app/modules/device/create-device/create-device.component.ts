@@ -25,8 +25,131 @@ export class CreateDeviceComponent  {
   ];
   
   selectedDevice: any; // Déclaration de selectedDevice
+  //device info 
+  showInfo = false;
+  deviceInfo: any = {}; // Object to store device information
+constructor(private deviceService: DeviceService, private snackBar: MatSnackBar) {}
   
-  constructor(private deviceService: DeviceService, private snackBar: MatSnackBar) {}
+toggleInfo() {
+  this.showInfo = !this.showInfo;
+  if (this.showInfo) {
+    this.fetchDeviceInfo();
+  }
+}
+
+fetchDeviceInfo() {
+  const { ipAddress, port } = this.device;
+  const portNumber = Number(port);
+
+  if (!ipAddress || !port) {
+    this.snackBar.open('L\'adresse IP et le port doivent être spécifiés.', 'Fermer', {
+      duration: 3000,
+      panelClass: ['snackbar-error']
+    });
+    return;
+  }
+
+  if (isNaN(portNumber) || portNumber <= 0) {
+    this.snackBar.open('Le port spécifié n\'est pas valide.', 'Fermer', {
+      duration: 3000,
+      panelClass: ['snackbar-error']
+    });
+    return;
+  }
+
+  this.deviceService.getDeviceInformation(ipAddress, portNumber).subscribe(
+    (response: any) => {
+      this.deviceInfo = response.info; // Assuming response contains an `info` object with the device info
+      this.snackBar.open('Informations générales récupérées avec succès.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['snackbar-success']
+      });
+    },
+    error => {
+      this.snackBar.open('Erreur lors de la récupération des informations générales.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
+    }
+  );
+}
+
+
+
+loadDeviceTime() {
+    const { ipAddress, port } = this.device;
+    const portNumber = Number(port); // Convertir port en nombre
+
+    if (!ipAddress || !port) {
+      this.snackBar.open('L\'adresse IP et le port doivent être spécifiés.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    this.deviceService.getDeviceTime(ipAddress, portNumber).subscribe(
+      (response: any) => {
+        console.log(response);
+        if (response && response.time) {
+          // Handle the device time (response.time) here
+          this.snackBar.open(`Temps de l'appareil: ${response.time}`, 'Fermer', {
+            duration: 3000,
+            panelClass: ['snackbar-success']
+          });
+        } else {
+          this.snackBar.open('Erreur lors de la récupération du temps de l\'appareil.', 'Fermer', {
+            duration: 3000,
+            panelClass: ['snackbar-error']
+          });
+        }
+      },
+      error => {
+        this.snackBar.open('Erreur lors de la récupération du temps de l\'appareil.', 'Fermer', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    );
+  }
+
+  saveDevice() {
+    // Validation de l'adresse IP et du port
+    const { ipAddress, port } = this.device;
+    const portNumber = Number(port); // Convertir port en nombre
+
+    if (!ipAddress || !port) {
+      this.snackBar.open('L\'adresse IP et le port doivent être spécifiés.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    if (isNaN(portNumber) || portNumber <= 0) {
+      this.snackBar.open('Le port spécifié n\'est pas valide.', 'Fermer', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
+    // Sauvegarder le périphérique en appelant le service
+    this.deviceService.saveDevice(this.device).subscribe(
+      (response: any) => {
+        this.snackBar.open('Périphérique enregistré avec succès.', 'Fermer', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      (error) => {
+        this.snackBar.open('Erreur lors de l\'enregistrement du périphérique.', 'Fermer', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    );
+  }
 
  
 
@@ -91,10 +214,14 @@ export class CreateDeviceComponent  {
   refresh() {
     
   }
+  
 
   onDeviceSelect(deviceId: string) {
     this.selectedDevice = this.devices.find(device => device.id === deviceId);
   }
+
+
+  
 }
 
 

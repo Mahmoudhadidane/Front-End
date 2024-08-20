@@ -83,54 +83,56 @@
         
           <div class="col-span-2 flex justify-between mt-4">
             <button mat-raised-button color="primary" type="submit">
-              Vérifier
+              verifier 
             </button>
-            <button mat-raised-button color="warn" (click)="restartDevice()">
-              Redémarrer
+            <button mat-raised-button color="warn" (click)="saveDevice()">
+              Enregistrer
             </button>
+            
+            
           </div>
         </form>
         
 
               <!-- Section Configuration du temps -->
               <div class="bg-gray-100 p-4 rounded-lg mt-4">
-                  <h3 class="text-lg font-bold">Configuration du temps</h3>
-                  <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <mat-form-field class="w-full">
-                          <mat-label>Date</mat-label>
-                          <input matInput type="date" />
-                      </mat-form-field>
-
-                      <mat-form-field class="w-full">
-                          <mat-label>Heure</mat-label>
-                          <input matInput type="time" />
-                      </mat-form-field>
-
-                      <div class="col-span-2 flex justify-end mt-4">
-                          <button mat-raised-button color="primary">
-                              Charger
-                          </button>
-                      </div>
-                  </form>
+                <h3 class="text-lg font-bold">Configuration du temps</h3>
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <mat-form-field class="w-full">
+                    <mat-label>Date</mat-label>
+                    <input matInput type="date" />
+                  </mat-form-field>
+              
+                  <mat-form-field class="w-full">
+                    <mat-label>Heure</mat-label>
+                    <input matInput type="time" />
+                  </mat-form-field>
+              
+                  <div class="col-span-2 flex justify-end mt-4">
+                    <button mat-raised-button color="primary" (click)="loadDeviceTime()">
+                      Charger
+                    </button>
+                  </div>
+                </form>
               </div>
-          </div>
-          <!-- Add this button to your template -->
           <!-- Right Side: Informations Générales -->
-          <!-- <div class="right-panel">
-              <button mat-raised-button color="accent" (click)="toggleInfo()">
-                  Informations Générales
-              </button>
-              <div *ngIf="showInfo" class="bg-gray-100 p-4 rounded-lg mt-4">
-                  <h3 class="text-lg font-bold text-center">
-                      Informations générales
-                  </h3>
-                  <p class="font-semibold">Statistiques utilisateurs:</p>
-                  <p class="font-semibold">Nombre d'utilisateurs:</p>
-                  <p class="font-semibold">Nombre d'empreintes:</p>
-                  <p class="font-semibold">Nombre de cartes:</p>
-                  <p class="font-semibold">Nombre de visages:</p>
-              </div>
-          </div> -->
+         
+
       </div>
+  </div>
+  <div class="right-panel">
+    <button mat-raised-button color="accent" (click)="toggleInfo()">
+      Informations Générales
+    </button>
+    <div *ngIf="showInfo" class="bg-gray-100 p-4 rounded-lg mt-4">
+      <h3 class="text-lg font-bold text-center">
+        Informations générales
+      </h3>
+      <p class="font-semibold">Statistiques utilisateurs:</p>
+      <p class="font-semibold">Nombre d'utilisateurs: {{ deviceInfo.users }}</p>
+      <p class="font-semibold">Nombre d'empreintes: {{ deviceInfo.fingers }}</p>
+      <p class="font-semibold">Nombre de cartes: {{ deviceInfo.cards }}</p>
+      <p class="font-semibold">Nombre de visages: {{ deviceInfo.faces }}</p>
+    </div>
   </div>
 </div>
